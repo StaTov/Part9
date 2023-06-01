@@ -12,6 +12,24 @@ interface parseCalculateValues {
     target: number;
     arrNumber: Array<number>;
 }
+interface BmiValues {
+    valueHeight: number;
+    valueWeight: number;
+}
+
+export const parseBmiArguments = (args: Array<string>): BmiValues => {
+    if (args.length > 4) throw new Error('Too many arguments')
+    if (args.length < 4) throw new Error('Not enough arguments')
+
+    if (!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
+        return {
+            valueHeight: Number(args[2]),
+            valueWeight: Number(args[3]),
+        }
+    } else {
+        throw new Error('Provided values were not numbers!')
+    }
+}
 export const calculateExercises = (target: number, arr: Array<number>): ResultEx => {
 
     let rating
@@ -28,6 +46,7 @@ export const calculateExercises = (target: number, arr: Array<number>): ResultEx
         }
     }
     function setRatingDescription(rating: number): RatingDescriptionValue {
+
         switch (rating) {
             case (1):
                 return 'Very Bad'
@@ -35,6 +54,8 @@ export const calculateExercises = (target: number, arr: Array<number>): ResultEx
                 return 'not too bad but could be better'
             case (3):
                 return 'very good'
+            default:
+                throw new Error('Somthing was wrong in rating switch case')
         }
     }
 

@@ -1,23 +1,8 @@
+import { parseBmiArguments } from "./utils"
 
 type Answer = 'Normal (healthy weight) / Норма' | 'Overweight / Избыточный вес' | 'Underweight / Недостаточный вес'
 
-interface BmiValues {
-    valueHeight: number;
-    valueWeight: number;
-}
-const parseArguments = (args: Array<string>): BmiValues => {
-    if (args.length > 4) throw new Error('Too many arguments')
-    if (args.length < 4) throw new Error('Not enough arguments')
 
-    if (!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
-        return {
-            valueHeight: Number(args[2]),
-            valueWeight: Number(args[3]),
-        }
-    } else {
-        throw new Error('Provided values were not numbers!')
-    }
-}
 
 const calculateBmi = (height: number, weight: number): Answer => {
 
@@ -34,12 +19,15 @@ const calculateBmi = (height: number, weight: number): Answer => {
             return 'Normal (healthy weight) / Норма';
         case (points >= 25):
             return 'Overweight / Избыточный вес';
+        default:
+            throw new Error('Something was wrong in switch case')
     }
+
 }
 
 try {
-    const { valueHeight, valueWeight } = parseArguments(process.argv)
-    console.log(calculateBmi(valueHeight, valueWeight))
+    const { valueHeight, valueWeight } = parseBmiArguments(process.argv)
+   console.log(calculateBmi(valueHeight, valueWeight))
 }
 catch (error: unknown) {
     let errorMessage = 'Something went wrong: '
@@ -48,3 +36,5 @@ catch (error: unknown) {
     }
     console.log(errorMessage)
 }
+
+export default calculateBmi
