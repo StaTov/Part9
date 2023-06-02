@@ -1,13 +1,13 @@
-import { parseCalculateArgyments } from './utils'
-import { calculateExercises } from './utils'
+import { parseCalculateArgyments } from './utils';
+import { calculateExercises } from './utils';
 
 try {
-    const { target, arrNumber } = parseCalculateArgyments(process.argv)
-    console.log(calculateExercises(target, arrNumber))
+    const { target, arrNumber } = parseCalculateArgyments(process.argv);
+    console.log(calculateExercises(target, arrNumber));
 } catch (error: unknown) {
-    let errorMessage: string = 'Something went wrong: '
+    let errorMessage = 'Something went wrong: ';
     if (error instanceof Error) {
-        errorMessage += error.message
+        errorMessage += error.message;
     }
-    console.log(errorMessage)
+    console.log(errorMessage);
 }

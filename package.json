@@ -6,6 +6,7 @@
   "scripts": {
     "start": "ts-node index.ts",
     "dev": "ts-node-dev index.ts",
+    "lint": "eslint --ext .ts .",
     "ts-node": "ts-node",
     "trainingCalculator": "ts-node trainingCalculator.ts",
     "bmiCalculator": "ts-node bmiCalculator.ts",
@@ -15,6 +16,9 @@
   "license": "ISC",
   "devDependencies": {
     "@types/express": "^4.17.17",
+    "@typescript-eslint/eslint-plugin": "^5.59.8",
+    "@typescript-eslint/parser": "^5.59.8",
+    "eslint": "^8.41.0",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.0.4"
