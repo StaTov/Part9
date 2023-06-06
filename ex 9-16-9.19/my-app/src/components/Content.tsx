@@ -1,9 +1,10 @@
-import { DiaryEntries } from "../types";
+import { ContentType } from "../types";
 
-const Content = (props: { diaryEntries: DiaryEntries[] }) => {
+
+const Content = ( {diaryEntries}: ContentType ) => {
     return (
         <div>
-            {props.diaryEntries.map(diary =>
+            {diaryEntries.map(diary =>
                 <div key={diary.id}>
                     <hr />
                     <h4>  date: {diary.date}</h4>

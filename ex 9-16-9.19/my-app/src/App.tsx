@@ -1,5 +1,5 @@
 import Content from "./components/Content";
-import { DiaryEntries, NoteType } from "./types";
+import { DiaryEntries, NoteValue } from "./types";
 import { useEffect, useState } from "react";
 import diaryService from "./services/diaryService";
 import DiaryForm from "./components/DiaryForm";
@@ -8,7 +8,7 @@ import Note from "./components/Note";
 
 function App() {
   const [diaryEntries, setDiaryEntries] = useState<DiaryEntries[]>([]);
-  const [note, setNote] = useState<NoteType>(null)
+  const [note, setNote] = useState<NoteValue>(null)
 
 
   useEffect(() => {
@@ -23,8 +23,8 @@ function App() {
   return (
     <div>
       <h1>Diary Entries</h1>
-      <Note note={note} setNote={setNote}/>
-      <DiaryForm  setNote={setNote} diaryEntries={diaryEntries} setDiaryEntries={setDiaryEntries} />
+      <Note note={note} setNote={setNote} />
+      <DiaryForm setNote={setNote} diaryEntries={diaryEntries} setDiaryEntries={setDiaryEntries} />
       <Content diaryEntries={diaryEntries} />
     </div>
   );

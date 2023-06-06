@@ -1,16 +1,16 @@
 import { useState } from "react";
-import { DiaryEntries, NewEntries, NoteType } from "../types";
+import { DiaryFormType, Event, NewEntries } from "../types";
 import diaryService from '../services/diaryService';
 import axios from "axios";
 
-const DiaryForm = (props: { setNote: React.Dispatch<React.SetStateAction<NoteType>>, diaryEntries: DiaryEntries[], setDiaryEntries: React.Dispatch<React.SetStateAction<DiaryEntries[]>> }) => {
+const DiaryForm = ({ diaryEntries, setNote, setDiaryEntries }: DiaryFormType) => {
     const [date, setDate] = useState('');
     const [visibility, setVisibility] = useState('');
     const [weather, setWeather] = useState('');
     const [comment, setComment] = useState('');
 
-    const handleSubmite = async (event: React.SyntheticEvent) => {
-        event.preventDefault()
+    const handleSubmite = async (e: Event) => {
+        e.preventDefault()
 
         const newEntries: NewEntries = {
             date,
@@ -21,12 +21,12 @@ const DiaryForm = (props: { setNote: React.Dispatch<React.SetStateAction<NoteTyp
 
         try {
             const addedDiary = await diaryService.create(newEntries)
-            props.setDiaryEntries([...props.diaryEntries].concat(addedDiary))
+            setDiaryEntries([...diaryEntries].concat(addedDiary))
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 console.log(error.status)
                 console.error(error.response);
-                if (error.response) { props.setNote(error.response.data) }
+                if (error.response) { setNote(error.response.data) }
             } else {
                 console.log(error)
             }
@@ -109,7 +109,7 @@ const DiaryForm = (props: { setNote: React.Dispatch<React.SetStateAction<NoteTyp
                     />
                 </label>
                 <label>
-                Cloudy
+                    Cloudy
                     <input
                         type='radio'
                         name='weather'
@@ -119,7 +119,7 @@ const DiaryForm = (props: { setNote: React.Dispatch<React.SetStateAction<NoteTyp
                     />
                 </label>
                 <label>
-                Stormy
+                    Stormy
                     <input
                         type='radio'
                         name='weather'
@@ -129,7 +129,7 @@ const DiaryForm = (props: { setNote: React.Dispatch<React.SetStateAction<NoteTyp
                     />
                 </label>
                 <label>
-                Windy
+                    Windy
                     <input
                         type='radio'
                         name='weather'

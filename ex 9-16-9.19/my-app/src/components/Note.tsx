@@ -1,22 +1,20 @@
 import { NoteType } from "../types"
 
-const Note = (props: {
-    note: null | string,
-    setNote: React.Dispatch<React.SetStateAction<NoteType>>
-}) => {
+
+const Note = ({ note, setNote}: NoteType) => {
     const style = {
         color: 'red',
         border: 'solid',
         borderColor: 'red',
         padding: 3
     }
-   
-    if (!props.note) {
+
+    if (!note) {
         return null
     }
-    setTimeout(() => { props.setNote(null) }, 5000)
+    setTimeout(() => { setNote(null) }, 5000)
     return (
-        <div style={style}>{props.note}</div>
+        <div style={style}>{note}</div>
     )
 }
 
