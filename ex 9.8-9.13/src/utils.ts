@@ -1,4 +1,4 @@
-import { Gender, newPatient } from "../types";
+import { Gender, newPatient } from "./types";
 
 
 const parseName = (name: unknown): string => {
@@ -47,8 +47,16 @@ const parseOccupation = (occupation: unknown): string => {
     return occupation;
 };
 
-
-const toNewPatient = (object: unknown): newPatient => {
+export const toPatientId = (id: unknown): string => {
+    if(isString(id)) return id;
+    throw new Error('Invalid param.id');
+};
+/*
+const parseEntries = (entries: unknown): Entry[] => {
+return entries
+}
+*/
+export const toNewPatient = (object: unknown): newPatient => {
     if (!object || typeof object !== 'object') {
         throw new Error('Incorrect or missing data');
     }
@@ -59,6 +67,7 @@ const toNewPatient = (object: unknown): newPatient => {
             ssn: parseSsn(object.ssn),
             gender: parseGender(object.gender),
             occupation: parseOccupation(object.occupation),
+            entries: []
         };
         return newPatient;
     }
@@ -67,4 +76,5 @@ const toNewPatient = (object: unknown): newPatient => {
     throw new Error('Incorrect or missing data');
 };
 
-export default toNewPatient;
+
+
