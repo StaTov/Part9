@@ -13,8 +13,8 @@ const getPatients = (): noSnnPatients[] => {
 
 const findById = (id: string): Patient => {
   const patient = patients.find(p => p.id === id);
-  if (patient) return patient;
-  throw new Error('Patient not found');
+  if (!patient) throw new Error('Patient not found');
+  return patient;
 };
 
 const addPatient = (newPatients: newPatient): Patient => {
