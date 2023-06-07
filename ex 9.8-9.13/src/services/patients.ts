@@ -3,7 +3,7 @@ import { noSnnPatients, Patient, newPatient } from "../types";
 import { v1 as uuid } from 'uuid';
 
 
-const patients = patientsData;
+const patients = patientsData as Patient[];
 
 const getPatients = (): noSnnPatients[] => {
   return patients.map(({ id, name, dateOfBirth, gender, occupation }) => ({

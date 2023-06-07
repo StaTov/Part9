@@ -212,19 +212,27 @@ export const toHospital = (obj: unknown): HospitalEntry => {
 };
 
 const toEntries = (object: unknown): Entry => {
-   if(object && typeof object === 'object'){
-  if( 'type' in object){
-   switch (object.type) {
-        case 'Hospital':
-            return toHospital(object);
-        case 'HealthCheck':
-            return toHealthCheckEntry(object);
-        case 'OccupationalHealthcare':
-            return toOccupationalHealthcareEntry(object);
-            default:
-                throw new Error('Incorrect data');
-    }}
-} throw new Error('Incorrect data:' +object);
+
+    if (object && typeof object === 'object') {
+        if ('type' in object) {
+            switch (object.type) {
+                case 'Hospital':
+                    return toHospital(object);
+                case 'HealthCheck':
+                    return toHealthCheckEntry(object);
+                case 'OccupationalHealthcare':
+                    return toOccupationalHealthcareEntry(object);
+                default:
+                    throw new Error('Incorrect data');
+            }
+        }
+    } throw new Error('Incorrect data:' + object);
+};
+const parseEntry = (arr: unknown): Entry[] | [] => {
+    if (!arr || !Array.isArray(arr)) { throw new Error('Incorrect  or missing data'); }
+    if (arr.length === 0) { return []; }
+    return arr.map(a => toEntries(a));
+
 };
 
 export const toNewPatient = (object: unknown): newPatient => {
@@ -238,7 +246,7 @@ export const toNewPatient = (object: unknown): newPatient => {
             ssn: parseSsn(object.ssn),
             gender: parseGender(object.gender),
             occupation: parseOccupation(object.occupation),
-            entries: object.entries.map(o => toEntries(o)),
+            entries: parseEntry(object.entries),
         };
         return newPatient;
     }
