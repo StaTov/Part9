@@ -1,4 +1,4 @@
-import { Gender, newPatient, HospitalEntry, Discharge, Diagnosis, OccupationalHealthcareEntry, SickLeave, HealthCheckRating, HealthCheckEntry, Entry } from "./types";
+import { Gender, newPatient, Discharge, Diagnosis, SickLeave, HealthCheckRating, NoIdHospitalEntry, NoIdHealthCheckEntry, NoIdEntry, NoIdOccupationalHealthcareEntry } from "./types";
 
 
 const parseName = (name: unknown): string => {
@@ -51,17 +51,8 @@ export const toPatientId = (id: unknown): string => {
     if (isString(id)) return id;
     throw new Error('Invalid param.id');
 };
-/*
-const parseEntries = (entries: unknown): Entry[] => {
-return entries
-}
-*/
-const parseId = (id: unknown): string => {
-    if (!isString(id)) {
-        throw new Error('Incorrect id: ' + id);
-    }
-    return id;
-};
+
+
 const parseDate = (date: unknown): string => {
     if (!isString(date) || !isDate(date)) {
         throw new Error('Incorrect date: ' + date);
@@ -85,7 +76,7 @@ const parseTypeOccupationalHealthcareEntry = (type: unknown): 'OccupationalHealt
     }
     return 'OccupationalHealthcare';
 };
-const parseString = (str: unknown): string => {
+export const parseString = (str: unknown): string => {
     if (!isString(str)) {
         throw new Error('Incorrect data, data not a string type: ' + str);
     }
@@ -140,13 +131,12 @@ const parseHealthCheckRating = (rating: unknown): HealthCheckRating => {
 };
 
 
-export const toOccupationalHealthcareEntry = (obj: unknown): OccupationalHealthcareEntry => {
+export const toOccupationalHealthcareEntry = (obj: unknown): NoIdOccupationalHealthcareEntry => {
     if (!obj || typeof obj !== 'object') {
         throw new Error('Incorrect or missing data');
     }
-    if ('id' in obj && 'date' in obj && 'type' in obj && 'employerName' in obj && 'specialist' in obj && 'description' in obj) {
-        let newObj: OccupationalHealthcareEntry = {
-            id: parseId(obj.id),
+    if ('date' in obj && 'type' in obj && 'employerName' in obj && 'specialist' in obj && 'description' in obj) {
+        let newObj: NoIdOccupationalHealthcareEntry = {
             date: parseDate(obj.date),
             description: parseString(obj.description),
             specialist: parseString(obj.specialist),
@@ -167,13 +157,12 @@ export const toOccupationalHealthcareEntry = (obj: unknown): OccupationalHealthc
         } return newObj;
     } throw new Error('Incorrect or missing data');
 };
-export const toHealthCheckEntry = (obj: unknown): HealthCheckEntry => {
+export const toHealthCheckEntry = (obj: unknown): NoIdHealthCheckEntry => {
     if (!obj || typeof obj !== 'object') {
         throw new Error('Incorrect or missing data');
     }
-    if ('id' in obj && 'date' in obj && 'type' in obj && 'healthCheckRating' in obj && 'specialist' in obj && 'description' in obj) {
-        let newObj: HealthCheckEntry = {
-            id: parseId(obj.id),
+    if ('date' in obj && 'type' in obj && 'healthCheckRating' in obj && 'specialist' in obj && 'description' in obj) {
+        let newObj: NoIdHealthCheckEntry = {
             date: parseDate(obj.date),
             type: parseTypeHealthCheckRating(obj.type),
             description: parseString(obj.description),
@@ -188,13 +177,12 @@ export const toHealthCheckEntry = (obj: unknown): HealthCheckEntry => {
         } return newObj;
     } throw new Error("Incorrect or missin data");
 };
-export const toHospital = (obj: unknown): HospitalEntry => {
+export const toHospital = (obj: unknown): NoIdHospitalEntry => {
     if (!obj || typeof obj !== 'object') {
         throw new Error('Incorrect or missing data');
     }
-    if ('id' in obj && 'date' in obj && 'type' in obj && 'discharge' in obj && 'specialist' in obj && 'description' in obj) {
-        const newObj: HospitalEntry = {
-            id: parseId(obj.id),
+    if ('date' in obj && 'type' in obj && 'discharge' in obj && 'specialist' in obj && 'description' in obj) {
+        const newObj: NoIdHospitalEntry = {
             date: parseDate(obj.date),
             type: parseTypeHospital(obj.type),
             description: parseString(obj.description),
@@ -211,7 +199,7 @@ export const toHospital = (obj: unknown): HospitalEntry => {
     } throw new Error('Invalid hospitalEntry');
 };
 
-const toEntries = (object: unknown): Entry => {
+export const toEntries = (object: unknown): NoIdEntry => {
 
     if (object && typeof object === 'object') {
         if ('type' in object) {
@@ -228,12 +216,6 @@ const toEntries = (object: unknown): Entry => {
         }
     } throw new Error('Incorrect data:' + object);
 };
-const parseEntry = (arr: unknown): Entry[] | [] => {
-    if (!arr || !Array.isArray(arr)) { throw new Error('Incorrect  or missing data'); }
-    if (arr.length === 0) { return []; }
-    return arr.map(a => toEntries(a));
-
-};
 
 export const toNewPatient = (object: unknown): newPatient => {
     if (!object || typeof object !== 'object') {
@@ -246,7 +228,7 @@ export const toNewPatient = (object: unknown): newPatient => {
             ssn: parseSsn(object.ssn),
             gender: parseGender(object.gender),
             occupation: parseOccupation(object.occupation),
-            entries: parseEntry(object.entries),
+
         };
         return newPatient;
     }

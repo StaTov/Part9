@@ -63,4 +63,8 @@ export interface Patient {
 
 
 export type noSnnPatients = Omit<Patient, 'ssn' | 'entries'>;
-export type newPatient = Omit<Patient, 'id'>;
+export type newPatient = Omit<Patient, 'id' |'entries'>;
+export type NoIdEntry = Omit<HospitalEntry, 'id'> | Omit<OccupationalHealthcareEntry, 'id'> | Omit<HealthCheckEntry, 'id'>;
+export type NoIdHospitalEntry = Omit<HospitalEntry, 'id'>;
+export type NoIdHealthCheckEntry =  Omit<HealthCheckEntry, 'id'>;
+export type NoIdOccupationalHealthcareEntry =  Omit<OccupationalHealthcareEntry, 'id'>;

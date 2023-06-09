@@ -1,4 +1,4 @@
-const diagnosis = [
+const diagnoses = [
     {
       "code": "M24.2",
       "name": "Disorder of ligament",
@@ -78,4 +78,4 @@ const diagnosis = [
     }
   ];
   
-  export default diagnosis;
+  export default diagnoses;
