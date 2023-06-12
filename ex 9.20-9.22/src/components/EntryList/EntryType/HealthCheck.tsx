@@ -7,7 +7,7 @@ import Divider from '@mui/material/Divider';
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import React from "react";
-import { Diagnosis, HealthCheckEntry } from "../../types";
+import { Diagnosis, HealthCheckEntry } from "../../../types";
 import DiagnosisCode from './DiagnosisCode';
 
 interface PropsHealthCheck {

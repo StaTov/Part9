@@ -2,6 +2,7 @@ import { Dialog, DialogTitle, DialogContent, Divider, Alert } from '@mui/materia
 
 import AddPatientForm from "./AddPatientForm";
 import { PatientFormValues } from "../../types";
+import React from 'react';
 
 interface Props {
   modalOpen: boolean;

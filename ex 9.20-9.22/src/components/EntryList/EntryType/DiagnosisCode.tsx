@@ -2,7 +2,7 @@
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import React from "react";
-import { Diagnosis } from "../../types";
+import { Diagnosis } from "../../../types";
 
 interface PropsDiagnosisCodes {
     diagnosisCodes: Array<Diagnosis['code']>;
