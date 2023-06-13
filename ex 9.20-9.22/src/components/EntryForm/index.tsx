@@ -6,7 +6,7 @@ import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
-import { Diagnosis, HealthCheckRating, Type } from "../../types";
+import { Diagnosis, HealthCheckRating, SickLeave, Type } from "../../types";
 
 interface PropsEntryForm {
     diagnoses: Diagnosis[];
@@ -24,7 +24,10 @@ const EntryForm = ({ diagnoses }: PropsEntryForm) => {
     const [dischargeDate, setDischargeDate] = useState('')
     const [criteria, setCriteria] = useState('')
     const [employerName, setEmployerName] = useState('')
-    const [sickLeave, setSickLeave] = useState<string | undefined>()
+    const [startDate, setStartDate] = useState('')
+    const [endDate, setEndDate] = useState('')
+    const [dayCount, setDayCount] = useState<number | undefined>()
+    const [sickLeave, setSickLeave] = useState<SickLeave | undefined>()
     const [healthCheckRating, setHealthCheckRating] = useState<HealthCheckRating>(HealthCheckRating.LowRisk)
 
     const handleAddCode = () => {
@@ -75,6 +78,26 @@ const EntryForm = ({ diagnoses }: PropsEntryForm) => {
         }
     }
 
+    const handleSickLeave = () => {
+        if (!startDate && !endDate) {
+            console.log(`missing data startDate or endDate`)
+            return
+        }
+        const msDate = Date.parse(endDate) - Date.parse(startDate)
+        if (isNaN(msDate)) {
+            console.log(`missing data startDate or endDate`)
+            return
+        }
+        const sickLeaveObj = { startDate, endDate }
+        setSickLeave(sickLeaveObj)
+        setDayCount(msDate / 86400000)
+    }
+    const handleResetSickLeave = () => {
+        setStartDate('')
+        setEndDate('')
+        setSickLeave(undefined)
+    }
+
     return (
         <Box>
             <form>
@@ -93,6 +116,7 @@ const EntryForm = ({ diagnoses }: PropsEntryForm) => {
                     <TextField
                         helperText='please select type'
                         size="small"
+                        sx={{ alignSelf: 'flex-start' }}
                         value={type}
                         onChange={handleType}
                         select>
@@ -106,6 +130,58 @@ const EntryForm = ({ diagnoses }: PropsEntryForm) => {
                             {Type.OccupationalHealthcare}
                         </MenuItem>
                     </TextField>
+                    {type === 'OccupationalHealthcare' &&
+                        <Box >
+                            <Typography variant='h6'>Employer name</Typography>
+                            <TextField
+                                sx={{ mt: 1.2 }}
+                                size="small"
+                                required
+                                label="employer name"
+                                value={employerName}
+                                onChange={(e) => setEmployerName(e.target.value)}
+                            />
+                            <Box sx={{ mt: 1.2 }}>
+                                <Typography variant='h6'>Sick leave</Typography>
+                                <Box sx={{ mt: 1.2 }}>
+                                    <TextField
+                                        sx={{ mr: 1.2 }}
+                                        value={startDate}
+                                        onChange={(e) => setStartDate(e.target.value)}
+                                        type='date'
+                                        helperText="start date"
+                                        size='small'
+                                    />
+                                    <TextField
+                                        value={endDate}
+                                        onChange={(e) => setEndDate(e.target.value)}
+                                        type='date'
+                                        helperText="end date"
+                                        size='small'
+                                    />
+                                </Box>
+                                <Box sx={{ mt: 1.2, display: 'flex', alignItems: 'center' }}>
+                                    <Button
+                                        sx={{ mr: 1.2 }}
+                                        variant='outlined'
+                                        onClick={handleSickLeave}
+                                        size='small'
+                                    >ASSIGN
+                                    </Button>
+                                    <Button
+                                        color="error"
+                                        disabled={!sickLeave}
+                                        sx={{ mr: 1.2 }}
+                                        variant='outlined'
+                                        onClick={handleResetSickLeave}
+                                        size='small'>
+                                        RESET
+                                    </Button>
+                                    {sickLeave && <Typography variant='body1'> duration: {dayCount} day(s)</Typography>}
+                                </Box>
+                            </Box>
+                        </Box>
+                    }
                     {type === 'Hospital' &&
                         <Box>
                             <Typography variant='h6'>Discharge</Typography>
@@ -149,7 +225,7 @@ const EntryForm = ({ diagnoses }: PropsEntryForm) => {
                             </MenuItem>
                         </TextField>
                     }
-                    <Typography sx={{mt: 1.2}}variant='h6'>Description</Typography>
+                    <Typography sx={{ mt: 1.2 }} variant='h6'>Description</Typography>
                     <TextField
                         sx={{ mt: 1.2 }}
                         size="small"
@@ -159,18 +235,19 @@ const EntryForm = ({ diagnoses }: PropsEntryForm) => {
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                     />
-                      <Typography sx={{mt: 1.2}}variant='h6'>Specialist</Typography>
-                    <TextField
-                        sx={{ mt: 1.2 }}
-                        size="small"
-                        required
-                        label="specialist"
-                        value={specialist}
-                        onChange={(e) => setSpecialist(e.target.value)}
-                    />
-                     <Typography sx={{mt: 1.2}}variant='h6'>Diagnosis code</Typography>
+                    <Typography sx={{ mt: 1.2 }} variant='h6'>Specialist</Typography>
+                    <Box>
+                        <TextField
+                            sx={{ mt: 1.2 }}
+                            size="small"
+                            required
+                            label="specialist"
+                            value={specialist}
+                            onChange={(e) => setSpecialist(e.target.value)}
+                        />
+                    </Box>
+                    <Typography sx={{ mt: 1.2 }} variant='h6'>Diagnosis code</Typography>
                     <Box sx={{ mt: 1.2, display: 'flex', alignItems: 'center' }}>
-
                         <TextField
                             sx={{ mr: 1.2 }}
                             size="small"
