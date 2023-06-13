@@ -6,7 +6,6 @@ import red from '@mui/material/colors/red';
 import Divider from '@mui/material/Divider';
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
-import React from "react";
 import { Diagnosis, HealthCheckEntry } from "../../../types";
 import DiagnosisCode from './DiagnosisCode';
 
