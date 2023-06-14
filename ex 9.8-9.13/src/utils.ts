@@ -55,7 +55,7 @@ export const toPatientId = (id: unknown): string => {
 
 const parseDate = (date: unknown): string => {
     if (!isString(date) || !isDate(date)) {
-        throw new Error('Incorrect date: ' + date);
+        throw new Error('Incorrect Date: ' + date);
     } return date;
 };
 const parseTypeHospital = (type: unknown): 'Hospital' => {
@@ -80,6 +80,9 @@ export const parseString = (str: unknown): string => {
     if (!isString(str)) {
         throw new Error('Incorrect data, data not a string type: ' + str);
     }
+    if(!str){
+        throw new Error('missing required field ');
+    }
     return str;
 };
 const isDischarge = (obj: unknown): obj is Discharge => {
@@ -92,7 +95,7 @@ const isDischarge = (obj: unknown): obj is Discharge => {
 };
 const parseDischarge = (obj: unknown): Discharge => {
     if (!isDischarge(obj)) {
-        throw new Error('Incorrect discharge: ' + obj);
+        throw new Error('Incorrect discharge field');
     }
     return obj;
 };
@@ -113,9 +116,9 @@ const parseSickLeave = (obj: unknown): SickLeave => {
 };
 const parseDiagnosisCodes = (arr: unknown): Array<Diagnosis['code']> => {
     if (!arr || !Array.isArray(arr)) {
-        throw new Error('Incorrect or missing data');
+        throw new Error('Incorrect or missing diagnosis codes');
     }
-    arr.forEach(a => { if (!isString(a)) { throw new Error('Incorrect data: ' + a); } });
+    arr.forEach(a => { if (!isString(a)) { throw new Error('Incorrect diagnosis codes: ' + a); } });
     return arr as Array<Diagnosis['code']>;
 };
 const isNumber = (text: unknown): text is number => {
@@ -126,7 +129,7 @@ const isHealthCheckRating = (param: number): param is HealthCheckRating => {
 };
 const parseHealthCheckRating = (rating: unknown): HealthCheckRating => {
     if (!isNumber(rating) || !isHealthCheckRating(rating)) {
-        throw new Error('Incorrect data: ' + rating);
+        throw new Error('Incorrect rating: ' + rating);
     } return rating;
 };
 
@@ -196,7 +199,7 @@ export const toHospital = (obj: unknown): NoIdHospitalEntry => {
             };
             return updateObj;
         } return newObj;
-    } throw new Error('Invalid hospitalEntry');
+    } throw new Error('required fields are not filled');
 };
 
 export const toEntries = (object: unknown): NoIdEntry => {
@@ -211,10 +214,10 @@ export const toEntries = (object: unknown): NoIdEntry => {
                 case 'OccupationalHealthcare':
                     return toOccupationalHealthcareEntry(object);
                 default:
-                    throw new Error('Incorrect data');
+                    throw new Error('Incorrect type: ' +object.type);
             }
         }
-    } throw new Error('Incorrect data:' + object);
+    } throw new Error('Incorrect data');
 };
 
 export const toNewPatient = (object: unknown): newPatient => {

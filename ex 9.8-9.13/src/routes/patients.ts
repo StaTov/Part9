@@ -7,7 +7,15 @@ import { parseString, toEntries, toNewPatient, toPatientId } from '../utils';
 const router = express.Router();
 
 router.get('/', (_req, res) => {
-    res.send(patientsService.getPatients());
+    try {
+        res.json(patientsService.getPatients());
+    } catch (error: unknown) {
+        let errorMessage = 'Somthing went wrong: ';
+        if (error instanceof Error) {
+            errorMessage += 'Error' + error.message;
+        }
+        res.status(400).send(errorMessage);
+    }
 });
 
 router.get('/:id', (req, res) => {
@@ -16,18 +24,33 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    const newPatient = toNewPatient(req.body);
-    const addedPatient = patientsService.addPatient(newPatient);
-    res.json(addedPatient);
-
+    try {
+        const newPatient = toNewPatient(req.body);
+        const addedPatient = patientsService.addPatient(newPatient);
+        res.json(addedPatient);
+    } catch (error: unknown) {
+        let errorMessage = 'Somthing went wrong: ';
+        if (error instanceof Error) {
+            errorMessage += 'Error' + error.message;
+        }
+        res.status(400).send(errorMessage);
+    }
 });
 router.post('/entry/:id', (req, res) => {
-    const id = parseString(req.params.id);
-    console.log('id', id);
-    const newEntry = toEntries(req.body);
-    console.log('newEntry', newEntry);
-    const addedEntry = patientsService.addEntryById(id, newEntry);
-    res.json(addedEntry);
+    try {
+        const id = parseString(req.params.id);
+
+        const newEntry = toEntries(req.body);
+
+        const addedEntry = patientsService.addEntryById(id, newEntry);
+        res.json(addedEntry);
+    } catch (error: unknown) {
+        let errorMessage = 'Somthing went wrong. ';
+        if (error instanceof Error) {
+            errorMessage += 'Error: ' + error.message;
+        }
+        res.status(400).send(errorMessage);
+    }
 });
 
 export default router;

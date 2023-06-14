@@ -8,18 +8,19 @@ import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
 import Box from "@mui/system/Box";
 import { pink } from "@mui/material/colors";
-import React from "react";
 import EntryDetails from "../EntryList";
 import EntryForm from "../EntryForm";
+import InfoNote from "../Note/InfoNote";
 
 
 const PatientInfo = () => {
     const { id } = useParams()
+    const [infoMessage, setInfoMessage] = useState<string | null>(null)
     const [user, setUser] = useState<Patient | null>(null)
     const [diagnoses, setDiagnoses] = useState<Diagnosis[] | null>(null)
     const [showForm, setShowForm] = useState<true | false>(false)
 
-    const handleClick = () => setShowForm(!showForm)
+    const handleShowForm = () => setShowForm(!showForm)
 
     useEffect(() => {
         if (id) {
@@ -52,16 +53,18 @@ const PatientInfo = () => {
                 <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
 
                     <Typography variant="body2">occupation: {user.occupation}</Typography>
-                    <Button disabled={showForm} variant="contained" color="primary" type="button" onClick={handleClick}>ADD NEW ENTRY</Button>
+                    <Button disabled={showForm} variant="contained" color="primary" type="button" onClick={handleShowForm}>ADD NEW ENTRY</Button>
                 </Box>
             </Paper>
-            {showForm &&
-                <Paper sx={{ p: 3, mt: 2.5 }} elevation={3}>
-                    <EntryForm diagnoses={diagnoses}/>
-                    <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <Button variant="contained" color="error" type="button" onClick={handleClick}>CLOSE</Button>
-                    </Box>
-                </Paper>}
+            <InfoNote infoMessage={infoMessage} setInfoMessage={setInfoMessage} />
+            {showForm && <EntryForm
+                setInfoMessage={setInfoMessage}
+                setUser={setUser}
+                user={user}
+                handleShowForm={handleShowForm}
+                diagnoses={diagnoses}
+            />}
+
             <Paper sx={{ pl: 3, pt: 1, pb: 3, pr: 3, mt: 2.5 }} elevation={3}>
                 <Typography sx={{ mt: 1 }} variant="h6"><strong>entries</strong></Typography>
                 <Box>
