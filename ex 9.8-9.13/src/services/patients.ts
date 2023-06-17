@@ -12,9 +12,8 @@ const getPatients = (): noSnnPatients[] => {
   }));
 };
 
-const getById = (id: string): Patient => {
+const getById = (id: string): Patient | undefined => {
   const patient = patients.find(p => p.id === id);
-  if (!patient) throw new Error('Patient not found');
   return patient;
 };
 
@@ -23,7 +22,7 @@ const addEntryById = (id: string, entry: NoIdEntry): Entry => {
     id: uuid(),
     ...entry
   };
-  patients = patients.map(p => p.id === id ? {...p, entries: p.entries.concat(entryWithId)} : p);
+  patients = patients.map(p => p.id === id ? { ...p, entries: p.entries.concat(entryWithId) } : p);
   return entryWithId;
 };
 

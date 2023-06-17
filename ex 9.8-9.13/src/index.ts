@@ -5,10 +5,10 @@ import patientsRouter from './routes/patients';
 import middleware from './utils/middleware';
 
 const app = express();
-// eslint-disable-next-line @typescript-eslint/no-unsafe-call
+
 app.use(cors());
 app.use(express.json());
-app.use(middleware.info);
+app.use(middleware.logger);
 
 
 app.get('/api/ping', (_req, res) => {
@@ -17,6 +17,7 @@ app.get('/api/ping', (_req, res) => {
 
 app.use('/api/diagnoses', diagnosesRouter);
 app.use('/api/patients', patientsRouter);
+app.use(middleware.errorHandler);
 
 const PORT = 3001;
 app.listen(PORT, () => {

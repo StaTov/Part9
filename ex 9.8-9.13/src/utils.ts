@@ -18,13 +18,13 @@ const isDate = (date: string): boolean => {
 
 const parseDateOfBirth = (dateOfBirth: unknown): string => {
     if (!isString(dateOfBirth) || !isDate(dateOfBirth)) {
-        throw new Error('Incorrect dateOfBirth: ' + dateOfBirth);
+        throw new Error('Incorrect dateOfBirth ' + dateOfBirth);
     }
     return dateOfBirth;
 };
 const parseSsn = (ssn: unknown): string => {
     if (!isString(ssn)) {
-        throw new Error('Incorrect snn: ' + ssn);
+        throw new Error('Incorrect snn ' + ssn);
     }
     return ssn;
 };
@@ -35,14 +35,14 @@ const isGender = (param: string): param is Gender => {
 
 const parseGender = (gender: unknown): Gender => {
     if (!isString(gender) || !isGender(gender)) {
-        throw new Error('Incorrect gender: ' + gender);
+        throw new Error('Incorrect gender ' + gender);
     }
     return gender;
 };
 
 const parseOccupation = (occupation: unknown): string => {
     if (!isString(occupation)) {
-        throw new Error('Incorrect gender: ' + occupation);
+        throw new Error('Incorrect gender ' + occupation);
     }
     return occupation;
 };
@@ -55,30 +55,30 @@ export const toPatientId = (id: unknown): string => {
 
 const parseDate = (date: unknown): string => {
     if (!isString(date) || !isDate(date)) {
-        throw new Error('Incorrect Date: ' + date);
+        throw new Error('Incorrect Date ' + date);
     } return date;
 };
 const parseTypeHospital = (type: unknown): 'Hospital' => {
     if (!isString(type) && type !== 'Hospital') {
-        throw new Error('Incorrect type: ' + type);
+        throw new Error('Incorrect type ' + type);
     }
     return 'Hospital';
 };
 const parseTypeHealthCheckRating = (type: unknown): 'HealthCheck' => {
     if (!isString(type) && type !== 'HealthCheck') {
-        throw new Error('Incorrect type: ' + type);
+        throw new Error('Incorrect type ' + type);
     }
     return 'HealthCheck';
 };
 const parseTypeOccupationalHealthcareEntry = (type: unknown): 'OccupationalHealthcare' => {
     if (!isString(type) && type !== 'OccupationalHealthcare') {
-        throw new Error('Incorrect type: ' + type);
+        throw new Error('Incorrect type ' + type);
     }
     return 'OccupationalHealthcare';
 };
 export const parseString = (str: unknown): string => {
     if (!isString(str)) {
-        throw new Error('Incorrect data, data not a string type: ' + str);
+        throw new Error('Incorrect data, data not a string type ' + str);
     }
     if(!str){
         throw new Error('missing required field ');
@@ -110,7 +110,7 @@ const isSickLeave = (obj: unknown): obj is SickLeave => {
 };
 const parseSickLeave = (obj: unknown): SickLeave => {
     if (!isSickLeave(obj)) {
-        throw new Error('Incorrect sickLeave: ' + obj);
+        throw new Error('Incorrect sickLeave ' + obj);
     }
     return obj;
 };
@@ -118,7 +118,7 @@ const parseDiagnosisCodes = (arr: unknown): Array<Diagnosis['code']> => {
     if (!arr || !Array.isArray(arr)) {
         throw new Error('Incorrect or missing diagnosis codes');
     }
-    arr.forEach(a => { if (!isString(a)) { throw new Error('Incorrect diagnosis codes: ' + a); } });
+    arr.forEach(a => { if (!isString(a)) { throw new Error('Incorrect diagnosis codes ' + a); } });
     return arr as Array<Diagnosis['code']>;
 };
 const isNumber = (text: unknown): text is number => {
@@ -129,7 +129,7 @@ const isHealthCheckRating = (param: number): param is HealthCheckRating => {
 };
 const parseHealthCheckRating = (rating: unknown): HealthCheckRating => {
     if (!isNumber(rating) || !isHealthCheckRating(rating)) {
-        throw new Error('Incorrect rating: ' + rating);
+        throw new Error('Incorrect rating ' + rating);
     } return rating;
 };
 
@@ -224,7 +224,7 @@ export const toNewPatient = (object: unknown): newPatient => {
     if (!object || typeof object !== 'object') {
         throw new Error('Incorrect or missing data');
     }
-    if ('name' in object && 'dateOfBirth' in object && 'ssn' in object && 'gender' in object && 'occupation' in object && 'entries' in object) {
+    if ('name' in object && 'dateOfBirth' in object && 'ssn' in object && 'gender' in object && 'occupation' in object ) {
         const newPatient: newPatient = {
             name: parseName(object.name),
             dateOfBirth: parseDateOfBirth(object.dateOfBirth),

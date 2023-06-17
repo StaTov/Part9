@@ -12,34 +12,31 @@ import EntryDetails from "../EntryList";
 import EntryForm from "../EntryForm";
 import InfoNote from "../Note/InfoNote";
 
+interface PropsPatientInfo {
+    diagnoses: Diagnosis[];
+}
 
-const PatientInfo = () => {
+const PatientInfo = ({ diagnoses }: PropsPatientInfo) => {
     const { id } = useParams()
     const [infoMessage, setInfoMessage] = useState<string | null>(null)
     const [user, setUser] = useState<Patient | null>(null)
-    const [diagnoses, setDiagnoses] = useState<Diagnosis[] | null>(null)
     const [showForm, setShowForm] = useState<true | false>(false)
 
     const handleShowForm = () => setShowForm(!showForm)
 
     useEffect(() => {
         if (id) {
+            
             patientService.getById(id).then(response => {
                 setUser(response.data)
-            });
-            diagnosesService.getAll().then(response => {
-                setDiagnoses(response.data)
             });
         }
     }, [id])
 
     if (!user) {
-        return null
+        return <Typography sx={{mt: 3}} variant='h6'>Patient not found...</Typography>
     }
-    if (!diagnoses) {
-        return null
-    }
-
+  
     return (
         <Box>
             <Paper sx={{ p: 3, mt: 2.5 }} elevation={3}>

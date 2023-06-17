@@ -36,6 +36,7 @@ const PatientListPage = ({ patients, setPatients }: Props) => {
     } catch (e: unknown) {
       if (axios.isAxiosError(e)) {
         if (e?.response?.data && typeof e?.response?.data === "string") {
+
           const message = e.response.data.replace('Something went wrong. Error: ', '');
           console.error(message);
           setError(message);
@@ -76,7 +77,7 @@ const PatientListPage = ({ patients, setPatients }: Props) => {
               <TableCell>{patient.gender}</TableCell>
               <TableCell>{patient.occupation}</TableCell>
               <TableCell>
-                <HealthRatingBar showText={false} rating={1} />
+                <HealthRatingBar showText={false} rating={3}} />
               </TableCell>
             </TableRow>
           ))}

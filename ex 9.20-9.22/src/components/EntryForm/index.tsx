@@ -20,7 +20,7 @@ interface PropsEntryForm {
     handleShowForm: () => void;
 }
 
-const EntryForm = ({setInfoMessage, setUser, user, diagnoses, handleShowForm }: PropsEntryForm) => {
+const EntryForm = ({ setInfoMessage, setUser, user, diagnoses, handleShowForm }: PropsEntryForm) => {
 
     const codeNames = diagnoses.map(d => d.code)
     const [errorMessage, setErrorMessage] = useState<string | null>(null)
@@ -139,18 +139,22 @@ const EntryForm = ({setInfoMessage, setUser, user, diagnoses, handleShowForm }: 
             setUser({ ...user, entries: [...user.entries, addedEntry] })
             setInfoMessage('new entry added successfuly')
             handleShowForm()
-        } catch (error) {
-            if (axios.isAxiosError(error)) {
-                setErrorMessage(error.response?.data);
-                return error.message;
+        } catch (e) {
+        
+            if (axios.isAxiosError(e)) {
+                if (e?.response?.data && typeof e?.response?.data === "string") {
+                    const message = e.response.data.replace('Something went wrong. Error: ', '');
+                    console.error(message);
+                    setErrorMessage(message);
+                } else {
+                    setErrorMessage("Unrecognized axios error");
+                }
             } else {
-                console.log('unexpected error: ', error);
-                return 'An unexpected error occurred';
+                console.error("Unknown error", e);
+                setErrorMessage("Unknown error");
             }
         }
-
     }
-
     return (
         <Box>
             <Paper sx={{ p: 3, mt: 2.5 }} elevation={3}>

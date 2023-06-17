@@ -7,7 +7,6 @@ interface NoteProps {
     setInfoMessage: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-
 const InfoNote = ({ infoMessage, setInfoMessage }: NoteProps) => {
 
     if (infoMessage) {
@@ -15,7 +14,6 @@ const InfoNote = ({ infoMessage, setInfoMessage }: NoteProps) => {
             setInfoMessage(null)
         }, 7000)
     }
-
     return (
         <Box sx={{  m: 2 }}>
             <Collapse in={infoMessage !== null}>

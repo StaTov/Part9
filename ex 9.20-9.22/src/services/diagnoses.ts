@@ -4,7 +4,7 @@ import { Diagnosis } from "../types";
 
 
 const getAll = async () => {
-    const data = await axios.get<Diagnosis[]>(`${apiBaseUrl}/diagnoses`)
+    const {data} = await axios.get<Diagnosis[]>(`${apiBaseUrl}/diagnoses`)
     return data
 }
 
