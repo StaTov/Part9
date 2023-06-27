@@ -140,7 +140,7 @@ const EntryForm = ({ setInfoMessage, setUser, user, diagnoses, handleShowForm }:
             setInfoMessage('new entry added successfuly')
             handleShowForm()
         } catch (e) {
-        
+
             if (axios.isAxiosError(e)) {
                 if (e?.response?.data && typeof e?.response?.data === "string") {
                     const message = e.response.data.replace('Something went wrong. Error: ', '');
