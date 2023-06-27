@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box, Table, Button, TableHead, Typography, TableCell, TableRow, TableBody } from '@mui/material';
 import axios from 'axios';
-import { PatientFormValues, Patient, HealthCheckEntry, Entry, HealthCheckRating } from "../../types";
+import { PatientFormValues, Patient, Entry } from "../../types";
 import AddPatientModal from "../AddPatientModal";
 import HealthRatingBar from "../HealthRatingBar";
 import patientService from "../../services/patients";
@@ -70,11 +70,16 @@ const PatientListPage = ({ patients, setPatients }: Props) => {
     return 4;
   }
 
+  if (!patients || patients.length === 0) {
+    return <Typography sx={{ mb: 1.7 }} align="center" variant="h5">
+      Not found ...
+    </Typography>
+  }
 
   return (
     <div className="App">
       <Box>
-        <Typography align="center" variant="h6">
+        <Typography sx={{ mb: 1.7 }} align="center" variant="h5">
           Patient list
         </Typography>
       </Box>
