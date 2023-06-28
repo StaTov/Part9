@@ -4,7 +4,7 @@ interface RequestWithTime extends Request {
     timeCall?: Date;
 }
 
-const logger = (req: RequestWithTime, _res: Response, next: NextFunction): void => {
+const loggerRequest = (req: RequestWithTime, _res: Response, next: NextFunction): void => {
     req.timeCall = new Date();
     console.log('TimeCall: ', req.timeCall);
     console.log('Method: ', req.method);
@@ -27,5 +27,8 @@ const errorHandler = (err: unknown, _req: Request, res: Response, next: NextFunc
     }
     next(err);
 };
+const unknowEndpoint = (_req: Request, res: Response) => {
+    res.status(404).send({error: 'unknown endpoint'});
+};
 
-export default { logger, errorHandler };
+export default { loggerRequest, errorHandler, unknowEndpoint};

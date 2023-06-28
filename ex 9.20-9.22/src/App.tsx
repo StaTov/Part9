@@ -9,7 +9,7 @@ import PatientInfo from "./components/OnePatientInfo";
 import SearchIcon from '@mui/icons-material/Search';
 import Box from "@mui/system/Box";
 import { grey } from '@mui/material/colors';
-import { FilterRounded } from "@mui/icons-material";
+
 
 
 const App = () => {
@@ -42,7 +42,7 @@ const App = () => {
           <Typography variant="h3" sx={{ mb: "0.1em", mt: '0.4em' }}>
             Patientor
           </Typography>
-          <Box sx={{ borderRadius: 1, height: 60, backgroundColor: grey[700], pl: 1.7, pr: 1.7, mb: 4, display: "flex", justifyContent: "space-between", alignItems: 'center' }}>
+          <Box sx={{ borderRadius: 1, height: 60, backgroundColor: grey[700], pl: 1.7, pr: 1.7, mb: 6, display: "flex", justifyContent: "space-between", alignItems: 'center' }}>
             <Button component={Link} to="/" variant="contained" color="primary">
               Home
             </Button>

@@ -9,10 +9,12 @@ const getAll = async () => {
   );
   return data;
 };
+
 const getById = async (id: string) => {
   const patient = await axios.get<Patient>(`${apiBaseUrl}/patients/${id}`)
   return patient;
 }
+
 const createEntry = async (id: string, object: EntryNoId) => {
   const { data } = await axios.post<Entry>(`${apiBaseUrl}/patients/entry/${id}`, object)
   return data

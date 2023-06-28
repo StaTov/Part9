@@ -17,25 +17,28 @@ const Hospital = ({ entry, diagnoses }: PropsHospital) => {
 
     return (
         <>
-            <Box sx={{ display: 'flex' }}>
-                <Typography variant="subtitle1">{entry.date}</Typography>
+            <Box sx={{ pt: 3, display: 'flex' }}>
+                <Typography variant="body1">date: <strong>{entry.date}</strong></Typography>
                 <Tooltip title='Hospital'>
                     <MedicalServicesIcon sx={{ ml: 3 }} />
                 </Tooltip>
             </Box>
-            <Box sx={{'& span': {p: 3}}}>
-                <Typography><em>{entry.description}</em></Typography>
+            <br />
+            <Box>
+                <Typography variant="body1">description: <em>{entry.description}</em></Typography>
+                <br />
                 {entry.diagnosisCodes && <>
-                    <Typography variant="body2">diagnoses: </Typography>
+                    <Typography variant="body1">diagnoses: </Typography>
                     <DiagnosisCode diagnosisCodes={entry.diagnosisCodes} diagnoses={diagnoses} />
                 </>}
                 <br />
-                <Typography variant="body2">descharge date: {entry.discharge.date}</Typography>
-                <Typography variant="body2">{entry.discharge.criteria}</Typography>
+                <Typography variant="body1">descharge date: {entry.discharge.date}</Typography>
                 <br />
-                <Typography variant="body2">diagnose by {entry.specialist}</Typography>
+                <Typography variant="body1">criteria: {entry.discharge.criteria}</Typography>
+                <br />
+                <Typography variant="body1">diagnose by: {entry.specialist}</Typography>
             </Box>
-            <Divider sx={{ pt: 1 }} />
+            <Divider sx={{ p: 1 }} />
         </>
     )
 }

@@ -164,8 +164,9 @@ const EntryForm = ({ setInfoMessage, setUser, user, diagnoses, handleShowForm }:
                     <Box sx={{ mt: 0.4, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
                         <Typography variant='h6' >Date and Type</Typography>
                         <TextField
+                            required
                             size="small"
-                            sx={{ mt: 1.2, alignSelf: 'flex-start' }}
+                            sx={{ mb: 1.5, mt: 1.2, alignSelf: 'flex-start' }}
                             helperText="please enter date"
                             value={date}
                             onChange={(e) => setDate(e.target.value)}
@@ -174,7 +175,7 @@ const EntryForm = ({ setInfoMessage, setUser, user, diagnoses, handleShowForm }:
                         <TextField
                             helperText='please select type'
                             size="small"
-                            sx={{ alignSelf: 'flex-start' }}
+                            sx={{ mb: 1.5, alignSelf: 'flex-start' }}
                             value={type}
                             onChange={handleType}
                             select>
@@ -192,6 +193,7 @@ const EntryForm = ({ setInfoMessage, setUser, user, diagnoses, handleShowForm }:
                             <Box >
                                 <Typography variant='h6'>Employer name</Typography>
                                 <TextField
+                                    required
                                     sx={{ mt: 1.2 }}
                                     size="small"
                                     label="employer name"
@@ -243,6 +245,7 @@ const EntryForm = ({ setInfoMessage, setUser, user, diagnoses, handleShowForm }:
                             <Box>
                                 <Typography variant='h6'>Discharge</Typography>
                                 <TextField
+                                    required
                                     sx={{ mt: 1.2 }}
                                     size="small"
                                     type="date"
@@ -250,6 +253,7 @@ const EntryForm = ({ setInfoMessage, setUser, user, diagnoses, handleShowForm }:
                                     value={dischargeDate}
                                     onChange={(e) => setDischargeDate(e.target.value)}
                                 />   <TextField
+                                    required
                                     sx={{ width: '100%', mt: 1.2 }}
                                     size="small"
                                     multiline
@@ -282,6 +286,7 @@ const EntryForm = ({ setInfoMessage, setUser, user, diagnoses, handleShowForm }:
                         }
                         <Typography sx={{ mt: 1.2 }} variant='h6'>Description</Typography>
                         <TextField
+                            required
                             sx={{ mt: 1.2 }}
                             size="small"
                             multiline
@@ -292,6 +297,7 @@ const EntryForm = ({ setInfoMessage, setUser, user, diagnoses, handleShowForm }:
                         <Typography sx={{ mt: 1.2 }} variant='h6'>Specialist</Typography>
                         <Box>
                             <TextField
+                                required
                                 sx={{ mt: 1.2 }}
                                 size="small"
                                 label="specialist"

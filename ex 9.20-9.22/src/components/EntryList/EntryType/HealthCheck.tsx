@@ -33,20 +33,20 @@ const HealthCheck = ({ entry, diagnoses }: PropsHealthCheck) => {
 
     return (<Box sx={{ mb: 3, mt: 3 }}>
         <Box sx={{ display: 'flex' }}>
-        <Typography variant="subtitle1">{entry.date}</Typography>
-          
+            <Typography variant="body1">date: <strong>{entry.date}</strong></Typography>
             <Tooltip title='Health Check'>
                 <FavoriteIcon sx={{ color: { color }, ml: 3 }} />
             </Tooltip>
         </Box>
         <br />
-        <Typography variant="body2"><em>{entry.description}</em></Typography>
-        {entry.diagnosisCodes && <>
-            <Typography variant="body2">diagnoses: </Typography>
+        <Typography variant="body1">description: <em>{entry.description}</em></Typography>
+        <br />
+         {entry.diagnosisCodes && <>
+            <Typography variant="body1">diagnoses: </Typography>
             <DiagnosisCode diagnosisCodes={entry.diagnosisCodes} diagnoses={diagnoses} />
         </>}
         <br />
-        <Typography variant="body2">diagnose by {entry.specialist}</Typography>
+        <Typography variant="body1">diagnose by: {entry.specialist}</Typography>
         <Divider sx={{ pt: 1, pb: 1 }} />
     </Box>
     )

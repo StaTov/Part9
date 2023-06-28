@@ -7,6 +7,7 @@ import HealthRatingBar from "../HealthRatingBar";
 import patientService from "../../services/patients";
 import { Link } from "react-router-dom";
 import React from "react";
+import NotFound from "./NotFound";
 
 
 interface Props {
@@ -47,6 +48,7 @@ const PatientListPage = ({ patients, setPatients }: Props) => {
       }
     }
   };
+
   const isNumber = (text: unknown): text is number => {
     return typeof text === 'number';
   };
@@ -70,14 +72,8 @@ const PatientListPage = ({ patients, setPatients }: Props) => {
     return 4;
   }
 
-  if (!patients || patients.length === 0) {
-    return <Typography sx={{ mb: 1.7 }} align="center" variant="h5">
-      Not found ...
-    </Typography>
-  }
-
   return (
-    <div className="App">
+    <Box sx={{mb: 4}} className="App">
       <Box>
         <Typography sx={{ mb: 1.7 }} align="center" variant="h5">
           Patient list
@@ -111,6 +107,7 @@ const PatientListPage = ({ patients, setPatients }: Props) => {
           ))}
         </TableBody>
       </Table>
+      <NotFound patients={patients} />
       <AddPatientModal
         modalOpen={modalOpen}
         onSubmit={submitNewPatient}
@@ -120,7 +117,7 @@ const PatientListPage = ({ patients, setPatients }: Props) => {
       <Button variant="contained" onClick={() => openModal()}>
         Add New Patient
       </Button>
-    </div>
+    </Box>
   );
 };
 

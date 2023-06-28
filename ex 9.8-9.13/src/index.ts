@@ -1,25 +1,7 @@
-import express from 'express';
-import cors from 'cors';
-import diagnosesRouter from './routes/diagnoses';
-import patientsRouter from './routes/patients';
-import middleware from './utils/middleware';
+import app from './app';
 
-const app = express();
+const PORT = process.env.PORT || 3001;
 
-app.use(cors());
-app.use(express.json());
-app.use(middleware.logger);
-
-
-app.get('/api/ping', (_req, res) => {
-    res.send("pong");
-});
-
-app.use('/api/diagnoses', diagnosesRouter);
-app.use('/api/patients', patientsRouter);
-app.use(middleware.errorHandler);
-
-const PORT = 3001;
 app.listen(PORT, () => {
     console.log(`server running on port ${PORT}`);
 });
