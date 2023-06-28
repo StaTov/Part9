@@ -4,7 +4,7 @@
   "description": "Ex Part 9",
   "main": "/build/index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=prodution node build/index.js",
+    "start": "cross-env NODE_ENV=production tsc && node build/src/index.js",
     "dev": "cross-env NODE_ENV=development ts-node-dev src/index.ts",
     "lint": "eslint --ext .ts .",
     "tsc": "tsc",
