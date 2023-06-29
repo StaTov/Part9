@@ -1,6 +1,6 @@
 import axios from "axios"
-import { apiBaseUrl } from "../constants"
-import { Diagnosis } from "../types";
+import { apiBaseUrl } from "../utils/constants"
+import { Diagnosis } from "../utils/types";
 
 
 const getAll = async () => {

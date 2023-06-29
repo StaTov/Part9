@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import React from "react";
-import { Diagnosis, HospitalEntry } from "../../../types";
+import { Diagnosis, HospitalEntry } from "../../../utils/types";
 import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
 import Tooltip from "@mui/material/Tooltip";
 import DiagnosisCode from "./DiagnosisCode";

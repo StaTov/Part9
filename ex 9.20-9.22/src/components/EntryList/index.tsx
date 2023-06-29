@@ -1,5 +1,5 @@
 import React from "react";
-import { Diagnosis, Entry } from "../../types";
+import { Diagnosis, Entry } from "../../utils/types";
 import HealthCheck from "./EntryType/HealthCheck";
 import Hospital from "./EntryType/Hospital";
 import OccupationHealthcare from "./EntryType/OccupationHealthcare";

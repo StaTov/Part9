@@ -7,7 +7,7 @@ import Paper from '@mui/material/Paper';
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
-import { BaseEntryNoId, Diagnosis, EntryNoId, HealthCheckRating, Patient, SickLeave, Type } from "../../types";
+import { BaseEntryNoId, Diagnosis, EntryNoId, HealthCheckRating, Patient, SickLeave, Type } from "../../utils/types";
 import patientService from '../../services/patients'
 import axios from 'axios';
 import ErrorNote from '../Note/ErrorNote';

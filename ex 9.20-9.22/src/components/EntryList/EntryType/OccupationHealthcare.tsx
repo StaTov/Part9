@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
-import { Diagnosis, OccupationalHealthcareEntry } from "../../../types";
+import { Diagnosis, OccupationalHealthcareEntry } from "../../../utils/types";
 import DiagnosisCode from "./DiagnosisCode";
 import WorkIcon from '@mui/icons-material/Work';
 

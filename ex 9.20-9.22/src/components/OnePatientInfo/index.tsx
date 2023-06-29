@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Diagnosis, Patient } from "../../types";
+import { Diagnosis, Patient } from "../../utils/types";
 import patientService from "../../services/patients";
-import diagnosesService from "../../services/diagnoses"
 import { Button, Paper, Typography } from "@mui/material";
 import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
@@ -17,7 +16,7 @@ interface PropsPatientInfo {
 }
 
 const PatientInfo = ({ diagnoses }: PropsPatientInfo) => {
-   
+
     const { id } = useParams()
     const [infoMessage, setInfoMessage] = useState<string | null>(null)
     const [user, setUser] = useState<Patient | null>(null)
@@ -27,6 +26,7 @@ const PatientInfo = ({ diagnoses }: PropsPatientInfo) => {
 
     const handleShowForm = () => setShowForm(!showForm)
 
+    // fetching data one patient
     useEffect(() => {
         if (id) {
             patientService.getById(id).then(response => {
@@ -36,8 +36,8 @@ const PatientInfo = ({ diagnoses }: PropsPatientInfo) => {
     }, [id])
 
     // show loading or bad request
-        if (!user) {
-        setTimeout(() => setLoading('Patient not found'), 6000)
+    if (!user) {
+        setTimeout(() => setLoading('Patient not found'), 4000)
         return <Typography sx={{ mt: 3 }} variant='h6'>{loading}...</Typography>
     }
 
@@ -46,8 +46,10 @@ const PatientInfo = ({ diagnoses }: PropsPatientInfo) => {
             <Paper sx={{ p: 3, mt: 2.5 }} elevation={3}>
                 <Box sx={{ display: 'flex' }}>
                     <Typography variant="h5" marginRight={2}><strong>{user.name}</strong></Typography>
+
                     {user.gender === 'male' && <MaleIcon color="primary" fontSize="large" />}
                     {user.gender === 'female' && <FemaleIcon sx={{ color: pink[500] }} fontSize="large" />}
+
                 </Box>
                 <Typography sx={{ mt: 1 }} variant="body2">date of birth: {user.dateOfBirth}</Typography>
                 <Typography variant="body2">ssn: {user.ssn}</Typography>

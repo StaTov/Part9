@@ -1,6 +1,6 @@
 import { useState, SyntheticEvent } from "react";
-import { TextField, InputLabel, MenuItem, Select, Grid, Button, SelectChangeEvent, Box } from '@mui/material';
-import { PatientFormValues, Gender } from "../../types";
+import { TextField, InputLabel, MenuItem, Select, Grid, Button, SelectChangeEvent } from '@mui/material';
+import { PatientFormValues, Gender } from "../../utils/types";
 
 interface Props {
   onCancel: () => void;

@@ -1,6 +1,6 @@
 import { Dialog, DialogTitle, DialogContent, Divider, Alert } from '@mui/material';
 import AddPatientForm from "./AddPatientForm";
-import { PatientFormValues } from "../../types";
+import { PatientFormValues } from "../../utils/types";
 
 
 interface Props {

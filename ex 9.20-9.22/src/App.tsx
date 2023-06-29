@@ -1,17 +1,13 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
-import { Button, Divider, Container, Typography, Paper, InputBase } from '@mui/material';
-import { Diagnosis, Patient } from "./types";
+import { Route, Routes } from "react-router-dom";
+import { Container } from '@mui/material';
+import { Diagnosis, Patient } from "./utils/types";
 import diagnosesService from "./services/diagnoses"
 import patientService from "./services/patients";
 import PatientListPage from "./components/PatientListPage";
 import PatientInfo from "./components/OnePatientInfo";
-import SearchIcon from '@mui/icons-material/Search';
-import Box from "@mui/system/Box";
-import { grey } from '@mui/material/colors';
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 import NavBar from "./components/NavBar/NavBar"
-
 
 
 const App = () => {
@@ -43,32 +39,30 @@ const App = () => {
 
   return (
     <div className="App">
-      <Router>
-        <Container>
-          <Routes>
+      <Container>
+        <Routes>
+          <Route
+            path="/"
+            element={<NavBar
+              patientFilter={patientFilter}
+              setPatientFilter={setPatientFilter} />}>
             <Route
-              path="/"
-              element={<NavBar
+              index
+              element={<PatientListPage
                 patientFilter={patientFilter}
-                setPatientFilter={setPatientFilter} />}>
-              <Route
-                index
-                element={<PatientListPage
-                  patientFilter={patientFilter}
-                  patients={filteredPatients}
-                  setPatients={setPatients} />}
-              />
-              <Route
-                path="/api/patients/:id"
-                element={
-                  <PatientInfo
-                    diagnoses={diagnoses} />}
-              />
-            </Route>
-            <Route path='*' element={<ErrorPage />} />
-          </Routes>
-        </Container>
-      </Router>
+                patients={filteredPatients}
+                setPatients={setPatients} />}
+            />
+            <Route
+              path="/api/patients/:id"
+              element={
+                <PatientInfo
+                  diagnoses={diagnoses} />}
+            />
+          </Route>
+          <Route path='*' element={<ErrorPage />} />
+        </Routes>
+      </Container>
     </div >
   );
 };

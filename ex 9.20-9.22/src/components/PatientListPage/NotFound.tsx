@@ -1,5 +1,5 @@
 import Typography from "@mui/material/Typography"
-import { Patient } from "../../types";
+import { Patient } from "../../utils/types";
 
 interface PropsNotFound {
     patients: Patient[]
