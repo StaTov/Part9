@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
-import { Button, Divider, Container, Typography, Paper, InputBase, IconButton } from '@mui/material';
+import { Button, Divider, Container, Typography, Paper, InputBase } from '@mui/material';
 import { Diagnosis, Patient } from "./types";
 import diagnosesService from "./services/diagnoses"
 import patientService from "./services/patients";
@@ -9,14 +9,19 @@ import PatientInfo from "./components/OnePatientInfo";
 import SearchIcon from '@mui/icons-material/Search';
 import Box from "@mui/system/Box";
 import { grey } from '@mui/material/colors';
+import ErrorPage from "./components/ErrorPage/ErrorPage";
+import NavBar from "./components/NavBar/NavBar"
 
 
 
 const App = () => {
+
+  //state
   const [patients, setPatients] = useState<Patient[]>([]);
   const [diagnoses, setDiagnoses] = useState<Diagnosis[]>([])
   const [patientFilter, setPatientFilter] = useState<string>('')
 
+  //fetch data
   useEffect(() => {
     const fetchDiagnosesList = async () => {
       const diagnoses = await diagnosesService.getAll()
@@ -31,6 +36,7 @@ const App = () => {
     void fetchPatientList();
   }, []);
 
+  // filter release
   const filteredPatients = !patientFilter
     ? patients
     : patients.filter(p => p.name.toLowerCase().includes(patientFilter.toLowerCase()))
@@ -39,41 +45,31 @@ const App = () => {
     <div className="App">
       <Router>
         <Container>
-          <Typography variant="h3" sx={{ mb: "0.1em", mt: '0.4em' }}>
-            Patientor
-          </Typography>
-          <Box sx={{ borderRadius: 1, height: 60, backgroundColor: grey[700], pl: 1.7, pr: 1.7, mb: 6, display: "flex", justifyContent: "space-between", alignItems: 'center' }}>
-            <Button component={Link} to="/" variant="contained" color="primary">
-              Home
-            </Button>
-            <Paper
-              component="form"
-              sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '100%', minWidth: '90px', maxWidth: '200px' }}
-            >
-              <InputBase
-                value={patientFilter}
-                onChange={(e) => setPatientFilter(e.target.value)}
-                size="small"
-                sx={{ ml: 1, flex: 1 }}
-                placeholder="Search Patients"
-                inputProps={{ 'aria-label': 'search patients' }}
-              />
-              <SearchIcon color="disabled" sx={{ p: '5px' }} aria-label="search" />
-            </Paper>
-          </Box>
-          <Divider hidden />
           <Routes>
-            <Route path="/" element={
-              <PatientListPage
-                patients={filteredPatients}
-                setPatients={setPatients} />} />
-            <Route path="/:id" element={
-              <PatientInfo
-                diagnoses={diagnoses} />} />
+            <Route
+              path="/"
+              element={<NavBar
+                patientFilter={patientFilter}
+                setPatientFilter={setPatientFilter} />}>
+              <Route
+                index
+                element={<PatientListPage
+                  patientFilter={patientFilter}
+                  patients={filteredPatients}
+                  setPatients={setPatients} />}
+              />
+              <Route
+                path="/api/patients/:id"
+                element={
+                  <PatientInfo
+                    diagnoses={diagnoses} />}
+              />
+            </Route>
+            <Route path='*' element={<ErrorPage />} />
           </Routes>
         </Container>
       </Router>
-    </div>
+    </div >
   );
 };
 

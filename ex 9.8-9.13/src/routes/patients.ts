@@ -15,7 +15,6 @@ router.get('/', (_req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-
     const id = toPatientId(req.params.id);
     const patient = patientsService.getById(id);
     if (!patient) {
@@ -24,21 +23,19 @@ router.get('/:id', (req, res) => {
     res.json(patient);
 });
 
-
 router.post('/', (req, res) => {
     const newPatient = toNewPatient(req.body);
     const addedPatient = patientsService.addPatient(newPatient);
     res.json(addedPatient);
-
-
 });
+
 router.post('/entry/:id', (req, res) => {
-    
-        const id = parseString(req.params.id);
-        const newEntry = toEntries(req.body);
-        const addedEntry = patientsService.addEntryById(id, newEntry);
-        res.json(addedEntry);
-  
+
+    const id = parseString(req.params.id);
+    const newEntry = toEntries(req.body);
+    const addedEntry = patientsService.addEntryById(id, newEntry);
+    res.json(addedEntry);
+
 });
 
 export default router;

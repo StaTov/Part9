@@ -17,26 +17,30 @@ interface PropsPatientInfo {
 }
 
 const PatientInfo = ({ diagnoses }: PropsPatientInfo) => {
+   
     const { id } = useParams()
     const [infoMessage, setInfoMessage] = useState<string | null>(null)
     const [user, setUser] = useState<Patient | null>(null)
     const [showForm, setShowForm] = useState<true | false>(false)
+    const [loading, setLoading] = useState<'loading' | 'Patient not found'>('loading')
+
 
     const handleShowForm = () => setShowForm(!showForm)
 
     useEffect(() => {
         if (id) {
-            
             patientService.getById(id).then(response => {
                 setUser(response.data)
             });
         }
     }, [id])
 
-    if (!user) {
-        return <Typography sx={{mt: 3}} variant='h6'>Patient not found...</Typography>
+    // show loading or bad request
+        if (!user) {
+        setTimeout(() => setLoading('Patient not found'), 6000)
+        return <Typography sx={{ mt: 3 }} variant='h6'>{loading}...</Typography>
     }
-  
+
     return (
         <Box>
             <Paper sx={{ p: 3, mt: 2.5 }} elevation={3}>

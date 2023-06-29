@@ -5,13 +5,14 @@ interface PropsNotFound {
     patients: Patient[]
 }
 
-const NotFound = ({patients}: PropsNotFound) => {
-    if(patients.length > 0){
+const NotFound = ({ patients }: PropsNotFound) => {
+
+    if (patients.length > 0) {
         return null
     }
     return (
-        <Typography sx={{ p: 3}} align="center" variant="h6">
-            Not found ...
+        <Typography sx={{ p: 3 }} align="center" variant="h6">
+            Not found...
         </Typography>
     )
 }

@@ -11,11 +11,12 @@ import NotFound from "./NotFound";
 
 
 interface Props {
-  patients: Patient[]
+  patientFilter: String,
+  patients: Patient[],
   setPatients: React.Dispatch<React.SetStateAction<Patient[]>>
 }
 
-const PatientListPage = ({ patients, setPatients }: Props) => {
+const PatientListPage = ({ patientFilter, patients, setPatients }: Props) => {
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [error, setError] = useState<string>();
@@ -73,7 +74,7 @@ const PatientListPage = ({ patients, setPatients }: Props) => {
   }
 
   return (
-    <Box sx={{mb: 4}} className="App">
+    <Box sx={{ mb: 4 }} className="App">
       <Box>
         <Typography sx={{ mb: 1.7 }} align="center" variant="h5">
           Patient list
@@ -93,7 +94,7 @@ const PatientListPage = ({ patients, setPatients }: Props) => {
             <TableRow key={patient.id}>
               <TableCell>
                 <Link
-                  to={`/${patient.id}`}
+                  to={`/api/patients/${patient.id}`}
                   style={{ textDecoration: 'none' }}>
                   {patient.name}
                 </Link>
@@ -107,7 +108,9 @@ const PatientListPage = ({ patients, setPatients }: Props) => {
           ))}
         </TableBody>
       </Table>
-      <NotFound patients={patients} />
+
+      {patientFilter && <NotFound patients={patients} />}
+
       <AddPatientModal
         modalOpen={modalOpen}
         onSubmit={submitNewPatient}
