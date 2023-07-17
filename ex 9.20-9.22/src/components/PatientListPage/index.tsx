@@ -73,7 +73,7 @@ const PatientListPage = ({ patientFilter, patients, setPatients }: Props) => {
             <TableRow key={patient.id}>
               <TableCell>
                 <Link
-                  to={`/api/patients/${patient.id}`}
+                  to={`/patients/${patient.id}`}
                   style={{ textDecoration: 'none' }}>
                   {patient.name}
                 </Link>

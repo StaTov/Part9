@@ -54,7 +54,7 @@ const App = () => {
                 setPatients={setPatients} />}
             />
             <Route
-              path="/api/patients/:id"
+              path="/patients/:id"
               element={
                 <PatientInfo
                   diagnoses={diagnoses} />}
